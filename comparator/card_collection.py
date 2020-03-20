@@ -53,13 +53,14 @@ class player_full_collection():
 
 
     def deck_comparator(self,sample_code = 'CEBAGAIDCQRSOCQBAQAQYDISDQTCOKBNGQAACAIBAMFQ'):        
-        custom_dict = self.decode_code_to_dict(sample_code = sample_code)        
+        custom_dict = self.decode_code_to_dict(sample_code = sample_code)  
+        print(custom_dict)      
         value_dict = {'Champion' : 3000, 'Epic' : 1200, 'Rare' : 300, 'Common' : 100}
         missing_cards = {}
         expected_cost = 0
         for code,quantity in custom_dict.items():
-            missing_quantity = custom_dict[code] - self.code_based_dict[code]['count']
-            if missing_quantity != 0:
+            missing_quantity = custom_dict[code] - self.code_based_dict[code]['count']            
+            if missing_quantity >= 0:                                
                 missing_cards[code] = {'name': self.code_based_dict[code]['name'],'rarity': self.code_based_dict[code]['rarity'],'missing_quantity' : missing_quantity}
                 expected_cost += missing_quantity * value_dict[self.code_based_dict[code]['rarity']]
 
