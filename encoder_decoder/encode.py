@@ -3,8 +3,8 @@ from base64 import b32encode
 from io import BytesIO
 from typing import List
 
-from lor_deckcodes.utils import write_varint
-from lor_deckcodes.constants import FORMAT_VERSION, faction_mapping
+from encoder_decoder.utils import write_varint
+from encoder_decoder.constants import FORMAT_VERSION, faction_mapping
 
 
 def _encode_card_block(data_stream: BytesIO, cards: List[object]) -> None:

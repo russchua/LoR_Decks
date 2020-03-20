@@ -2,8 +2,8 @@ from io import BytesIO
 from typing import List
 
 
-from lor_deckcodes.utils import next_varint, decode_base32
-from lor_deckcodes.constants import faction_mapping, FORMAT_VERSION
+from encoder_decoder.utils import next_varint, decode_base32
+from encoder_decoder.constants import faction_mapping, FORMAT_VERSION
 
 
 def _decode_card_block(n: int, data_stream: BytesIO) -> List[str]:

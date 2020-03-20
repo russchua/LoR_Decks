@@ -2,17 +2,15 @@ import pandas as pd
 import numpy as np
 import json
 import os
-dir_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) # This gets the lor_deckbuilder folder
+dir_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) # This gets the LoR_Decks folder
 import sys
 sys.path.insert(1, dir_path)
-from twisted_fate import Deck
-print(f'Before anything begins, dir_path: {dir_path}')
+from encoder_decoder import LoRDeck, CardCodeAndCount
 
 class player_full_collection():
     def __init__(self,excel_file = 'russ_card_collection.xlsx'):
-        print(f'This is excel_file: {excel_file}')
-        print(f'This is the dir_path within player_full_collection: {dir_path}')
-        excel_file = os.path.join(dir_path,excel_file)
+        print(f'I read your collection from the excel_file: {excel_file}\n\n')        
+        excel_file = os.path.join(dir_path,'collection/{excel_file}'.format(excel_file = excel_file))
         
         xls = pd.ExcelFile(excel_file)
         Demacia_Collection = pd.read_excel(xls, 'Demacia', header = None, usecols=[1, 3])
@@ -31,19 +29,27 @@ class player_full_collection():
 
         numpy_list = np.array(all_data)
 
-        with open(os.path.join(dir_path,'twisted_fate/data/data/set1-en_us.json')) as f:            
+        with open(os.path.join(dir_path,'data/set1-en_us.json')) as f:            
             json_data = json.load(f)
-        all_available_cards = {}
+
+        code_based_dict = {}
+        name_based_dict = {}        
         for each_dictionary in json_data:      
             if each_dictionary['collectible'] == True:
-                all_available_cards[each_dictionary['name'].upper()] = [0,each_dictionary['rarity']]                                  
+                name_based_dict[each_dictionary['name'].upper()] = {'count': 0, 
+                                                                    'rarity' : each_dictionary['rarity'], 
+                                                                    'code': each_dictionary['cardCode'], 
+                                                                    'name': each_dictionary['name'].upper()}
+                code_based_dict[each_dictionary['cardCode']] = name_based_dict[each_dictionary['name'].upper()]      
+
         for i in range(len(numpy_list[:,0])):      
             if (numpy_list[i,1].isdigit()):                    
                 try:
-                    all_available_cards[numpy_list[i,0].upper()][0] = int(numpy_list[i,1])
+                    name_based_dict[numpy_list[i,0].upper()]['count'] = int(numpy_list[i,1])
                 except KeyError:
                     print(f'There is an error: {numpy_list[i,0].upper()}')
-        self.all_cards = all_available_cards
+        self.name_based_dict = name_based_dict
+        self.code_based_dict = code_based_dict
 
 
     def deck_comparator(self,sample_code = 'CEBAGAIDCQRSOCQBAQAQYDISDQTCOKBNGQAACAIBAMFQ'):        
@@ -51,11 +57,11 @@ class player_full_collection():
         value_dict = {'Champion' : 3000, 'Epic' : 1200, 'Rare' : 300, 'Common' : 100}
         missing_cards = {}
         expected_cost = 0
-        for key,value in custom_dict.items():
-            missing_quantity = custom_dict[key] - self.all_cards[key][0]
+        for code,quantity in custom_dict.items():
+            missing_quantity = custom_dict[code] - self.code_based_dict[code]['count']
             if missing_quantity != 0:
-                missing_cards[key] = custom_dict[key] - self.all_cards[key][0]    
-                expected_cost += missing_cards[key] * value_dict[self.all_cards[key][1]]
+                missing_cards[code] = {'name': self.code_based_dict[code]['name'],'rarity': self.code_based_dict[code]['rarity'],'missing_quantity' : missing_quantity}
+                expected_cost += missing_quantity * value_dict[self.code_based_dict[code]['rarity']]
 
 
         return missing_cards,expected_cost
@@ -63,19 +69,23 @@ class player_full_collection():
 
         print(deck_comparator(russ_collection.all_cards,draven_dict))
 
-    def decode_code_to_dict(self,sample_code = 'CEBAGAIDCQRSOCQBAQAQYDISDQTCOKBNGQAACAIBAMFQ'):  
-        from twisted_fate import Deck      
+    def decode_code_to_dict(self,sample_code = 'CEBAGAIDCQRSOCQBAQAQYDISDQTCOKBNGQAACAIBAMFQ'): 
+        # Decoding
         deck_dict = {}
-        chosen_deck = Deck.decode(sample_code)
-        for j in range(len(chosen_deck.cards)):  
-            deck_dict[chosen_deck.cards[j].name.upper()] = chosen_deck.cards[j].count
+        deck = LoRDeck.from_deckcode(sample_code)             
+        for index in range(len(list(deck))):            
+            card_code = '{set_number:02d}{faction}{card_id:03d}'.format(set_number=deck.cards[index].set,faction = deck.cards[index].faction,card_id=deck.cards[index].card_id)
+            deck_dict[card_code] = deck.cards[index].count        
         return(deck_dict)
         
 
 
-if __name__ == "__main__":
-    russ_collection = player_full_collection(os.path.join(dir_path,'russ_card_collection.xlsx'))
-    print(f'This is your collection: {russ_collection.all_cards}')
+if __name__ == "__main__":    
+    russ_collection = player_full_collection('russ_card_collection.xlsx')
+    # print(russ_collection.all_cards)
+    # print(f'\n\nThis is your collection: {russ_collection.name_based_dict}')
+    # print(f'\n\nThis is also your collection: {russ_collection.code_based_dict}')
     desired_deck = russ_collection.decode_code_to_dict()
-    print(f'This is the deck you are trying to build: {desired_deck}')
-    print(f'These are the cards you need: {russ_collection.deck_comparator(desired_deck)}')
+    # print(f'This is the deck you are trying to build: {desired_deck}')
+    sample_code = 'CEBAKAIFAQOSQLRWAUAQEAQDFE2TSAQBAEBDCAYBAUHRIOABAIAQKAYT'
+    print(f'These are the cards you need: {russ_collection.deck_comparator(sample_code = sample_code)}')
