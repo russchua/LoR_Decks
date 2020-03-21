@@ -2,12 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import LorLogo from "./../../assets/LoR-logo.png";
-import Search from "./Search";
 
 // Material-UI
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -57,19 +55,9 @@ const Header = props => {
             onClick={() => routeToHome(history)}
           >
             <div className={classes.logo}>
-            <img src={LorLogo} alt="LorLogo" width="150" height="50" style={{ marginRight: 10 }} />
-              <Typography
-                className={classes.title}
-                variant="title"
-                color="inherit"
-                noWrap
-                style={{marginLeft: 5}}
-              >
-                Deck Autocomplete
-              </Typography>
+             <img src={LorLogo} alt="LorLogo" width="150" height="50" style={{ marginRight: 10 }} />
             </div>
             <div className={classes.grow} />
-            <Search />
           </Toolbar>
         </AppBar>
       </div>

@@ -1,9 +1,9 @@
 {
-  "name": "github-search",
+  "name": "LoR-deck-autocomplete",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.8.2",
+    "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "history": "^4.7.2",
