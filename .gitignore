@@ -1,2 +1,7 @@
 lor
 change_env.sh
+data/en_us
+data/outdated
+data/COPYRIGHT
+data/README.md
+data/metadata.json

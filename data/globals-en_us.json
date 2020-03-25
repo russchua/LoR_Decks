@@ -6,19 +6,24 @@
       "nameRef": "Obliterate"
     },
     {
-      "description": "A spell-like effect created and cast by unit.",
+      "description": "A unit's spell-like effect that allows enemy reactions.",
       "name": "Skill",
       "nameRef": "Skill"
     },
     {
       "description": "While attacking, it strikes both before AND at the same time as its blocker.",
       "name": "Double Attack",
-      "nameRef": "Double Strike"
+      "nameRef": "DoubleStrike"
     },
     {
       "description": "Lowest Power, with ties broken by lowest Health then lowest Cost",
       "name": "Weakest",
       "nameRef": "Weakest"
+    },
+    {
+      "description": "Get this effect when this unit attacks.",
+      "name": "Attack",
+      "nameRef": "AttackSkillMark"
     },
     {
       "description": "Can only be blocked by an Elusive unit.",
@@ -71,7 +76,7 @@
       "nameRef": "Capture"
     },
     {
-      "description": "Set a unit's Power to 0 this round (it can be changed after).",
+      "description": "Set a unit's Power to 0 this round. It can be changed after.",
       "name": "Frostbite",
       "nameRef": "Frostbite"
     },
@@ -96,9 +101,14 @@
       "nameRef": "Overwhelm"
     },
     {
+      "description": "Get this effect when you play this unit from hand.",
+      "name": "Play",
+      "nameRef": "PlaySkillMark"
+    },
+    {
       "description": "While attacking, strikes before its blocker.",
       "name": "Quick Attack",
-      "nameRef": "Quick Strike"
+      "nameRef": "QuickStrike"
     },
     {
       "description": "Takes 1 less damage from all sources.",
@@ -121,6 +131,11 @@
       "nameRef": "Regeneration"
     },
     {
+      "description": "Removes all text and keywords from a unit.",
+      "name": "Silenced",
+      "nameRef": "Silenced"
+    },
+    {
       "description": "Damage this unit deals heals its Nexus that amount.",
       "name": "Lifesteal",
       "nameRef": "Lifesteal"
@@ -129,6 +144,11 @@
       "description": "You're Enlightened when you have 10 max mana.",
       "name": "Enlightened",
       "nameRef": "Enlightened"
+    },
+    {
+      "description": "A champion levels up once this condition is met, even in hand or deck.",
+      "name": "Level Up",
+      "nameRef": "LevelUp"
     },
     {
       "description": "Slow spells can be cast outside of combat and other casting. The enemy can respond.",
@@ -153,7 +173,7 @@
     {
       "description": "These abilities take effect when the unit dies.",
       "name": "Last Breath",
-      "nameRef": "Last Breath"
+      "nameRef": "LastBreath"
     },
     {
       "description": "Can choose which enemy unit blocks.",
@@ -166,7 +186,7 @@
       "nameRef": "Imbue"
     },
     {
-      "description": "Can only be blocked by enemies with 3 or more Attack.",
+      "description": "Can only be blocked by enemies with 3 or more Power.",
       "name": "Fearsome",
       "nameRef": "Fearsome"
     },
@@ -178,44 +198,38 @@
   ],
   "regions": [
     {
-      "abbreviation": "NE",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-neutral.png",
-      "name": "Neutral",
-      "nameRef": "Neutral"
-    },
-    {
       "abbreviation": "NX",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-noxus.png",
+      "iconAbsolutePath": "http://dd.b.pvp.net/0_9_2_0/core/en_us/img/regions/icon-noxus.png",
       "name": "Noxus",
       "nameRef": "Noxus"
     },
     {
       "abbreviation": "DE",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-demacia.png",
+      "iconAbsolutePath": "http://dd.b.pvp.net/0_9_2_0/core/en_us/img/regions/icon-demacia.png",
       "name": "Demacia",
       "nameRef": "Demacia"
     },
     {
       "abbreviation": "FR",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-freljord.png",
+      "iconAbsolutePath": "http://dd.b.pvp.net/0_9_2_0/core/en_us/img/regions/icon-freljord.png",
       "name": "Freljord",
       "nameRef": "Freljord"
     },
     {
       "abbreviation": "SI",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-shadowisles.png",
+      "iconAbsolutePath": "http://dd.b.pvp.net/0_9_2_0/core/en_us/img/regions/icon-shadowisles.png",
       "name": "Shadow Isles",
       "nameRef": "ShadowIsles"
     },
     {
       "abbreviation": "IO",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-ionia.png",
+      "iconAbsolutePath": "http://dd.b.pvp.net/0_9_2_0/core/en_us/img/regions/icon-ionia.png",
       "name": "Ionia",
       "nameRef": "Ionia"
     },
     {
       "abbreviation": "PZ",
-      "iconAbsolutePath": "http://dd.b.pvp.net/core/en_us/img/regions/icon-piltoverzaun.png",
+      "iconAbsolutePath": "http://dd.b.pvp.net/0_9_2_0/core/en_us/img/regions/icon-piltoverzaun.png",
       "name": "Piltover & Zaun",
       "nameRef": "PiltoverZaun"
     }
