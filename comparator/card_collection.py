@@ -87,7 +87,6 @@ if __name__ == "__main__":
     # print(f'\n\nThis is also your collection: {russ_collection.code_based_dict}')
     desired_deck = russ_collection.decode_code_to_dict()
     # print(f'This is the deck you are trying to build: {desired_deck}')
-    sample_code = 'CEBAEAIBAQLAWAICAIDASDARCULSQLBSHEAACAIBAIYQ'
-    sample_code2= 'CEAACAIBAU2QCAIBAEEQ'
-    print(russ_collection.decode_code_to_dict(sample_code2))
+    sample_code = 'CEBAEAIBAQLAWAICAIDASDARCULSQLBSHEAACAIBAIYQ'    
+    # print(russ_collection.decode_code_to_dict(sample_code2))
     print(f'These are the cards you need: {russ_collection.deck_comparator(sample_code = sample_code)}')
